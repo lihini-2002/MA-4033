@@ -1,0 +1,153 @@
+==== Table A1: Parameter estimates of candidate models (ML) ====
+                  Model Parameter Estimate     SE t_ratio Significant
+ ARIMA(0,0,0) with mean intercept   0.0050 0.0746    0.07          no
+ ARIMA(0,0,0) zero mean    (none)       NA     NA      NA        <NA>
+           ARIMA(1,0,0)       ar1  -0.0550 0.0706   -0.78          no
+           ARIMA(1,0,0) intercept   0.0048 0.0706    0.07          no
+           ARIMA(0,0,1)       ma1  -0.0541 0.0696   -0.78          no
+           ARIMA(0,0,1) intercept   0.0048 0.0705    0.07          no
+           ARIMA(1,0,1)       ar1  -0.0684 0.6945   -0.10          no
+           ARIMA(1,0,1)       ma1   0.0134 0.6936    0.02          no
+           ARIMA(1,0,1) intercept   0.0048 0.0707    0.07          no
+           ARIMA(2,0,2)       ar1  -0.6843 0.0336  -20.36         yes
+           ARIMA(2,0,2)       ar2  -0.9453 0.0317  -29.78         yes
+           ARIMA(2,0,2)       ma1   0.6248 0.0256   24.36         yes
+           ARIMA(2,0,2)       ma2   1.0000 0.0193   51.73         yes
+           ARIMA(2,0,2) intercept   0.0047 0.0712    0.07          no
+ Subset MA(4): ma4 only       ma4  -0.1230 0.0722   -1.70          no
+ Subset MA(4): ma4 only intercept   0.0066 0.0652    0.10          no
+           ARIMA(0,1,1)       ma1  -1.0000 0.0347  -28.79         yes
+
+==== Table A2: Information criteria of candidate models ====
+                  Model sigma2  logLik    AIC    BIC
+ ARIMA(0,0,0) with mean 1.1135 -294.54 591.08 597.68
+ ARIMA(0,0,0) zero mean 1.1136 -294.54 589.09 592.39
+           ARIMA(1,0,0) 1.1101 -294.24 592.48 602.37
+           ARIMA(0,0,1) 1.1102 -294.24 592.48 602.38
+           ARIMA(1,0,1) 1.1101 -294.24 594.48 607.67
+           ARIMA(2,0,2) 1.0169 -287.77 585.54 605.33
+ Subset MA(4): ma4 only 1.0980 -293.16 590.33 600.22
+           ARIMA(0,1,1) 1.1191 -296.22 594.43 601.03
+
+==== Table A3: Moduli of characteristic roots (>1 needed) ====
+ARIMA(1,0,0) :        AR 
+"18.1766" 
+ARIMA(0,0,1) :        MA 
+"18.4794" 
+ARIMA(1,0,1) :        AR        MA 
+"14.6286" "74.7276" 
+ARIMA(2,0,2) :               AR               MA 
+"1.0285, 1.0285"           "1, 1" 
+ARIMA(0,1,1) :  MA 
+"1" 
+
+==== Part B: estimates of the mean, CSS vs ML ====
+
+Call:
+arima(x = y, order = c(0, 0, 0), method = "ML")
+
+Coefficients:
+      intercept
+         0.0050
+s.e.     0.0746
+
+sigma^2 estimated as 1.114:  log likelihood = -294.54,  aic = 591.08
+
+Call:
+arima(x = y, order = c(0, 0, 0), method = "CSS")
+
+Coefficients:
+      intercept
+         0.0050
+s.e.     0.0746
+
+sigma^2 estimated as 1.114:  part log likelihood = -294.54
+Sample mean = 0.005   sample variance = 1.1191 
+
+-- t-test of H0: mu = 0 --
+
+	One Sample t-test
+
+data:  y
+t = 0.066695, df = 199, p-value = 0.9469
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.1425211  0.1524992
+sample estimates:
+  mean of x 
+0.004989059 
+
+
+==== FINAL MODEL ====
+
+Call:
+arima(x = y, order = c(0, 0, 0), include.mean = FALSE, method = "ML")
+
+
+sigma^2 estimated as 1.114:  log likelihood = -294.54,  aic = 589.09
+null device 
+          1 
+
+Std. residuals with |value| > 3:  
+null device 
+          1 
+
+-- Shapiro-Wilk normality test --
+
+	Shapiro-Wilk normality test
+
+data:  res
+W = 0.99314, p-value = 0.4782
+
+
+-- Runs test (independence) --
+$pvalue
+[1] 0.719
+
+$observed.runs
+[1] 104
+
+$expected.runs
+[1] 100.96
+
+$n1
+[1] 98
+
+$n2
+[1] 102
+
+$k
+[1] 0
+
+null device 
+          1 
+
+==== Table C1: Ljung-Box tests on residuals ====
+      K Q_star df p_value
+[1,]  6  3.921  6  0.6874
+[2,] 12 10.863 12  0.5407
+[3,] 18 11.903 18  0.8522
+[4,] 24 16.235 24  0.8794
+null device 
+          1 
+
+==== Part D: overfitting ====
+Compare ARIMA(0,0,0) with ARIMA(1,0,0) and ARIMA(0,0,1) in Table A1/A2:
+the extra phi / theta should be insignificant (|t| < 2) and AIC should not drop.
+                  Model sigma2  logLik    AIC    BIC
+ ARIMA(0,0,0) with mean 1.1135 -294.54 591.08 597.68
+           ARIMA(1,0,0) 1.1101 -294.24 592.48 602.37
+           ARIMA(0,0,1) 1.1102 -294.24 592.48 602.38
+
+==== Part E: ARIMA(0,1,1) (what happens if we difference) ====
+
+Call:
+arima(x = y, order = c(0, 1, 1), method = "ML")
+
+Coefficients:
+          ma1
+      -1.0000
+s.e.   0.0347
+
+sigma^2 estimated as 1.119:  log likelihood = -296.22,  aic = 594.43
+Lag-1 sample ACF of diff(y): -0.53  (theoretical value -0.5 if y is white noise)

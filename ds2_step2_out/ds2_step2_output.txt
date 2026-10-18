@@ -1,0 +1,214 @@
+==== Table A1: Parameter estimates (ML) ====
+                       Model Parameter Estimate     SE t_ratio Significant
+                ARIMA(0,1,0)    (none)       NA     NA      NA        <NA>
+                ARIMA(0,1,1)       ma1  -0.1356 0.0631   -2.15         yes
+                ARIMA(1,1,0)       ar1  -0.1062 0.0577   -1.84          no
+                ARIMA(2,1,0)       ar1  -0.1205 0.0575   -2.09         yes
+                ARIMA(2,1,0)       ar2  -0.1310 0.0574   -2.28         yes
+                ARIMA(0,1,2)       ma1  -0.1042 0.0590   -1.76          no
+                ARIMA(0,1,2)       ma2  -0.1073 0.0603   -1.78          no
+                ARIMA(1,1,1)       ar1   0.3345 0.3005    1.11          no
+                ARIMA(1,1,1)       ma1  -0.4656 0.2809   -1.66          no
+                ARIMA(1,1,2)       ar1  -0.6722 0.1992   -3.37         yes
+                ARIMA(1,1,2)       ma1   0.5631 0.1995    2.82         yes
+                ARIMA(1,1,2)       ma2  -0.1846 0.0570   -3.24         yes
+                ARIMA(2,1,1)       ar1  -0.5403 0.4934   -1.10          no
+                ARIMA(2,1,1)       ar2  -0.1749 0.0602   -2.90         yes
+                ARIMA(2,1,1)       ma1   0.4284 0.5035    0.85          no
+                ARIMA(3,1,0)       ar1  -0.1126 0.0579   -1.94          no
+                ARIMA(3,1,0)       ar2  -0.1235 0.0577   -2.14         yes
+                ARIMA(3,1,0)       ar3   0.0621 0.0579    1.07          no
+ Subset ARIMA(2,1,0), phi1=0       ar2  -0.1179 0.0575   -2.05         yes
+
+==== Table A2: Criteria + Ljung-Box p-values ====
+                       Model sigma2  logLik    AIC   AICc    BIC   LB6  LB12
+                ARIMA(2,1,0) 1.0216 -427.48 858.96 859.04 870.06 0.760 0.438
+                ARIMA(1,1,2) 1.0163 -426.71 859.43 859.57 874.23 0.627 0.471
+                ARIMA(3,1,0) 1.0177 -426.91 859.81 859.95 874.62 0.769 0.420
+                ARIMA(2,1,1) 1.0179 -426.95 859.90 860.04 874.70 0.774 0.416
+                ARIMA(0,1,2) 1.0252 -428.00 860.01 860.09 871.11 0.579 0.349
+                ARIMA(0,1,1) 1.0360 -429.56 861.11 861.15 868.51 0.265 0.208
+ Subset ARIMA(2,1,0), phi1=0 1.0367 -429.66 861.32 861.36 868.72 0.242 0.180
+                ARIMA(1,1,1) 1.0314 -428.90 861.79 861.87 872.89 0.303 0.224
+                ARIMA(1,1,0) 1.0395 -430.06 862.12 862.16 869.52 0.163 0.145
+                ARIMA(0,1,0) 1.0513 -431.75 863.49 863.51 867.19 0.075 0.073
+  LB18  LB24
+ 0.584 0.772
+ 0.603 0.807
+ 0.599 0.794
+ 0.579 0.787
+ 0.473 0.686
+ 0.286 0.492
+ 0.289 0.498
+ 0.317 0.532
+ 0.206 0.395
+ 0.111 0.250
+
+==== Table A3: Moduli of characteristic roots (>1 needed) ====
+ARIMA(0,1,1) :      MA 
+"7.372" 
+ARIMA(1,1,0) :       AR 
+"9.4132" 
+ARIMA(2,1,0) :               AR 
+"2.7633, 2.7633" 
+ARIMA(0,1,2) :              MA 
+"2.606, 3.5773" 
+ARIMA(1,1,1) :       AR       MA 
+"2.9895" "2.1476" 
+ARIMA(1,1,2) :               AR               MA 
+        "1.4876" "1.2575, 4.3075" 
+ARIMA(2,1,1) :               AR               MA 
+"2.3912, 2.3912"          "2.334" 
+ARIMA(3,1,0) :                       AR 
+"2.0935, 2.0935, 3.6752" 
+Subset ARIMA(2,1,0), phi1=0 :               AR 
+"2.9122, 2.9122" 
+
+==== Part B1: is a drift (constant in the differenced model) needed? ====
+
+	One Sample t-test
+
+data:  dy
+t = -1.2291, df = 298, p-value = 0.22
+alternative hypothesis: true mean is not equal to 0
+95 percent confidence interval:
+ -0.18941439  0.04377579
+sample estimates:
+ mean of x 
+-0.0728193 
+
+
+ARIMA(2,1,0) with drift (fitted to the differences):
+
+Call:
+arima(x = dy, order = c(2, 0, 0), method = "ML")
+
+Coefficients:
+          ar1      ar2  intercept
+      -0.1287  -0.1394    -0.0748
+s.e.   0.0575   0.0574     0.0459
+
+sigma^2 estimated as 1.013:  log likelihood = -426.18,  aic = 858.36
+t-ratio of drift: -1.63 
+
+==== Part B2: ARIMA(2,1,0) - ML vs CSS ====
+
+Call:
+arima(x = y, order = o, method = "ML")
+
+Coefficients:
+          ar1      ar2
+      -0.1205  -0.1310
+s.e.   0.0575   0.0574
+
+sigma^2 estimated as 1.022:  log likelihood = -427.48,  aic = 858.96
+
+Call:
+arima(x = y, order = final_order, method = "CSS")
+
+Coefficients:
+          ar1      ar2
+      -0.1214  -0.1310
+s.e.   0.0574   0.0572
+
+sigma^2 estimated as 1.022:  part log likelihood = -427.5
+
+==== FINAL MODEL ====
+
+Call:
+arima(x = y, order = o, method = "ML")
+
+Coefficients:
+          ar1      ar2
+      -0.1205  -0.1310
+s.e.   0.0575   0.0574
+
+sigma^2 estimated as 1.022:  log likelihood = -427.48,  aic = 858.96
+null device 
+          1 
+
+Std. residuals with |value| > 3 at times: 236 
+Range of std. residuals: -3.22 2.82 
+null device 
+          1 
+
+-- Shapiro-Wilk normality test --
+
+	Shapiro-Wilk normality test
+
+data:  res
+W = 0.99502, p-value = 0.4468
+
+
+-- Runs test (independence) --
+$pvalue
+[1] 0.477
+
+$observed.runs
+[1] 157
+
+$expected.runs
+[1] 150.3645
+
+$n1
+[1] 154
+
+$n2
+[1] 145
+
+$k
+[1] 0
+
+null device 
+          1 
+
+==== Table C1: Ljung-Box tests on residuals (df = K - p - q) ====
+      K Q_star df p_value
+[1,]  6  1.873  4  0.7591
+[2,] 12 10.001 10  0.4404
+[3,] 18 14.183 16  0.5851
+[4,] 24 16.821 22  0.7732
+null device 
+          1 
+
+==== Part D: overfitting ARIMA(2,1,0) ====
+
+-- ARIMA(2,1,0) --
+
+Call:
+arima(x = y, order = o, method = "ML")
+
+Coefficients:
+          ar1      ar2
+      -0.1205  -0.1310
+s.e.   0.0575   0.0574
+
+sigma^2 estimated as 1.022:  log likelihood = -427.48,  aic = 858.96
+
+-- ARIMA(3,1,0) --
+
+Call:
+arima(x = y, order = o, method = "ML")
+
+Coefficients:
+          ar1      ar2     ar3
+      -0.1126  -0.1235  0.0621
+s.e.   0.0579   0.0577  0.0579
+
+sigma^2 estimated as 1.018:  log likelihood = -426.91,  aic = 859.81
+
+-- ARIMA(2,1,1) --
+
+Call:
+arima(x = y, order = o, method = "ML")
+
+Coefficients:
+          ar1      ar2     ma1
+      -0.5403  -0.1749  0.4284
+s.e.   0.4934   0.0602  0.5035
+
+sigma^2 estimated as 1.018:  log likelihood = -426.95,  aic = 859.9
+        Model sigma2  logLik    AIC   AICc    BIC   LB6  LB12  LB18  LB24
+ ARIMA(2,1,0) 1.0216 -427.48 858.96 859.04 870.06 0.760 0.438 0.584 0.772
+ ARIMA(2,1,1) 1.0179 -426.95 859.90 860.04 874.70 0.774 0.416 0.579 0.787
+ ARIMA(3,1,0) 1.0177 -426.91 859.81 859.95 874.62 0.769 0.420 0.599 0.794

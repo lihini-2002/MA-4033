@@ -1,0 +1,131 @@
+Column used: 220361D 
+n = 200 
+
+     Min.   1st Qu.    Median      Mean   3rd Qu.      Max. 
+-2.832210 -0.703459  0.031371  0.004989  0.797293  2.439739 
+SD = 1.057888 
+
+==== Sample ACF (original) ====
+ [1] -0.055  0.006  0.062 -0.109 -0.002  0.014 -0.077 -0.056  0.060 -0.003
+[11] -0.044  0.134 -0.042 -0.031 -0.041  0.018  0.002 -0.005 -0.026 -0.092
+[21] -0.048 -0.014 -0.009  0.086
+
+==== Sample PACF (original) ====
+ [1] -0.055  0.003  0.063 -0.103 -0.014  0.011 -0.064 -0.075  0.053  0.015
+[11] -0.055  0.112 -0.017 -0.037 -0.078  0.050  0.012 -0.020 -0.031 -0.075
+[21] -0.079 -0.033  0.009  0.072
+Approx. 2 s.e. bound = +/- 0.141 
+
+==== Sample EACF (original) ====
+AR/MA
+  0 1 2 3 4 5 6 7 8 9 10 11 12 13
+0 o o o o o o o o o o o  o  o  o 
+1 o o o o o o o o o o o  o  o  o 
+2 o x o o o o o o o o o  o  o  o 
+3 x x x o o o o o o o o  o  o  o 
+4 x o x x o o o o o o o  o  o  o 
+5 x o x x x o o o o o o  o  o  o 
+6 x o x x x x o o o o o  o  o  o 
+7 x x x x x x x o o o o  o  o  o 
+
+==== ADF test ====
+k selected by AIC on diff(y): 9 
+
+-- H1: stationary with unknown mean (type = 'c') --
+
+Title:
+ Augmented Dickey-Fuller Test
+
+Test Results:
+  PARAMETER:
+    Lag Order: 9
+  STATISTIC:
+    Dickey-Fuller: -4.7031
+  P VALUE:
+    0.01 
+
+Description:
+ Sun Oct 18 19:28:53 2026 by user: 
+
+-- H1: stationary around a linear trend (type = 'ct') --
+
+Title:
+ Augmented Dickey-Fuller Test
+
+Test Results:
+  PARAMETER:
+    Lag Order: 9
+  STATISTIC:
+    Dickey-Fuller: -4.7321
+  P VALUE:
+    0.01 
+
+Description:
+ Sun Oct 18 19:28:53 2026 by user: 
+
+-- tseries::adf.test (trend alternative, default lag) --
+
+	Augmented Dickey-Fuller Test
+
+data:  y
+Dickey-Fuller = -5.9157, Lag order = 5, p-value = 0.01
+alternative hypothesis: stationary
+
+
+==== Sample EACF (first difference) ====
+AR/MA
+  0 1 2 3 4 5 6 7 8 9 10 11 12 13
+0 x o o o o o o o o o o  x  o  o 
+1 x o o o o o o o o o o  x  o  o 
+2 x x x o o o o o o o o  o  o  o 
+3 x x x x o o o o o o o  o  o  o 
+4 x x x x x o o o o o o  o  o  o 
+5 x x x x x o o o o o o  o  o  o 
+6 x o x x x o x o o o o  o  o  o 
+7 x x x o x o x o o o o  o  o  o 
+
+==== ADF test on first difference ====
+
+Title:
+ Augmented Dickey-Fuller Test
+
+Test Results:
+  PARAMETER:
+    Lag Order: 9
+  STATISTIC:
+    Dickey-Fuller: -7.3774
+  P VALUE:
+    0.01 
+
+Description:
+ Sun Oct 18 19:28:53 2026 by user: 
+
+==== Candidate ARIMA models sorted by AIC ====
+ p d q    AICc     BIC     AIC
+ 2 0 2 585.973 605.328 585.538
+ 2 0 3 587.876 610.381 587.293
+ 3 0 2 587.886 610.391 587.303
+ 2 1 3 589.420 608.742 588.982
+ 3 0 3 590.129 615.761 589.375
+ 3 1 3 591.260 613.727 590.674
+ 0 0 0 591.144 597.679 591.083
+ 1 0 0 592.598 602.370 592.475
+ 0 0 1 592.606 602.379 592.484
+ 0 1 1 594.494 601.020 594.433
+ 0 0 2 594.655 607.644 594.450
+ 2 0 0 594.679 607.667 594.474
+
+==== Candidate ARIMA models sorted by BIC ====
+ p d q    AICc     BIC     AIC
+ 0 0 0 591.144 597.679 591.083
+ 0 1 1 594.494 601.020 594.433
+ 1 0 0 592.598 602.370 592.475
+ 0 0 1 592.606 602.379 592.484
+ 2 0 2 585.973 605.328 585.538
+ 1 1 1 596.054 605.811 595.931
+ 0 1 2 596.066 605.823 595.943
+ 0 0 2 594.655 607.644 594.450
+ 2 0 0 594.679 607.667 594.474
+ 1 0 1 594.680 607.668 594.475
+ 2 1 3 589.420 608.742 588.982
+ 2 0 3 587.876 610.381 587.293
